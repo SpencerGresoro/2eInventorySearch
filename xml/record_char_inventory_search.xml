@@ -5,7 +5,7 @@
         <script file="scripts/inventory_search.lua"/>
 
         <sheetdata>
-
+ 
             <!-- search controls (input and clear button) -->
             <searchinput name="inv_search_input">
                 <left />
@@ -27,7 +27,7 @@
                 <anchored to="invtitle" position="insidetopright" offset="0,0" width="145" height="20"/>
                 <listdirection>down</listdirection>
             </filtercombo>
-            
+ 
         </sheetdata>
     </windowclass>
 </root>

@@ -8,6 +8,7 @@
         <ruleset>
             <name>2E</name>
         </ruleset>
+        <loadorder>99</loadorder>
     </properties>
     <base>
         <includefile source="xml/scripts.xml"/>
