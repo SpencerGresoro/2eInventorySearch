@@ -2,16 +2,16 @@
 <root release="4.0" version="3.0">
     <properties>
         <name>2E Search and Filtering</name>
-        <version>1.0</version>
+        <version>1.1</version>
         <author>Spencer Gresoro</author>
-        <description>Provides search and advanced filtering capability to the Inventory tab and Party Sheet Inventory</description>
+        <description>Provides search and advanced filtering capability to Character Sheet Inventory and Party Sheet Inventory</description>
         <ruleset>
             <name>2E</name>
         </ruleset>
     </properties>
     <base>
         <includefile source="xml/scripts.xml"/>
-        <icon name="IS_icon" file="graphics/icons/IS_icon.png"/>
+        <icon name="2eInventorySearch" file="graphics/icons/2eInventorySearch.png"/>
     </base>
-    <announcement font="emotefont" icon="IS_icon" text="2E Search and Filtering v1.0"/>
+    <announcement font="emotefont" icon="2eInventorySearch" text="2E Search and Filtering v1.0"/>
 </root>

@@ -1,4 +1,5 @@
-function onInit()
+-- on init - register/define options (options menu) for 2e inventory search
+ function onInit()
     local ruleset = User.getRulesetName();
 
     filterOptions = {
@@ -103,7 +104,10 @@ function onInit()
         }
     };
 
+    -- foreach object in filter options
     for _, v in ipairs(filterOptions) do
+
+        -- registy options 
         if v.sOptKey ~= nil and (v.sRulesetFilter == nil or v.sRulesetFilter == ruleset) then
             OptionsManager.registerOption2(v.sOptKey, true, "option_header_IS", v.sLabelRes, "option_entry_cycler", {
                 labels = "option_val_on",
@@ -112,15 +116,18 @@ function onInit()
                 baseval = "off",
                 default = "on"
             });
+
+            -- register callback for option changed
             OptionsManager.registerCallback(v.sOptKey, onOptionChanged);
         end
     end
 end
 
-function findFilterOption(sLabelRes, sLabelValue, sOptKey)
+-- dropdown - lookup the correct option object
+function findFilterOptionObject(sLabelRes, sLabelValue, sOptKey)
     local option;
 
-    for _, v in ipairs(SearchManager.filterOptions) do
+    for _, v in ipairs(SearchAndFilterManager.filterOptions) do
         if sLabelRes ~= nil and sLabelRes == v.sLabelRes then
             option = v;
         elseif sLabelValue ~= nil and Interface.getString(v.sLabelRes) == sLabelValue then
@@ -130,24 +137,34 @@ function findFilterOption(sLabelRes, sLabelValue, sOptKey)
         end
     end
 
+    -- return the option object which contains things like the filter callback
     return option;
 end
 
+-- global option listeners object
 local aFilterOptionListeners = {};
+
+-- set filter option listener
 function setFilterOptionListener(f)
+
+    -- push listner object to table
     table.insert(aFilterOptionListeners, f);
 end
+
+-- remove filter option listener
 function removeFilterOptionListener(f)
+
+    -- remove listener from the global filter object
     for k, v in ipairs(aFilterOptionListeners) do
         if v == f then
             table.remove(aFilterOptionListeners, k);
             return true;
         end
     end
-
     return false;
 end
 
+-- on option changed, update the global filter object (listeners)
 function onOptionChanged(sKey)
     for _, v in pairs(aFilterOptionListeners) do
         v(sKey);

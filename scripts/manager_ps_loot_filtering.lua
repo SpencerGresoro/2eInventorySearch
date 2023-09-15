@@ -1,14 +1,13 @@
 
--- global override assignment on init ?
+-- global override of party loot manager function
 function onInit()
-
     PartyLootManager.buildPartyInventory = buildPartyInventoryWithFiltering;
-
 end
 
 -- override of PartyLootManager.buildPartyInventory
 function buildPartyInventoryWithFiltering()
 
+    -- sample database structure (output)
     -- <carried type="number">1</carried>
     -- <isidentified type="number">1</isidentified>
     -- <subtype type="string">Other</subtype>
@@ -21,9 +20,15 @@ function buildPartyInventoryWithFiltering()
 
     -- Build a database of party inventory items
     local aInvDB = {};
+
+    -- foreach character in the party sheet
     for _, v in ipairs(tParty) do
+
         local aItemListPaths = ItemManager.getAllInventoryListPaths(v.node);
+
         for _, sListPath in pairs(aItemListPaths) do
+
+            -- foreach item
             for _, nodeItem in ipairs(DB.getChildList(v.node, sListPath)) do
 
                 -- extract all data from the item db node

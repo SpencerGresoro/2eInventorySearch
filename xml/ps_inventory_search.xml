@@ -6,7 +6,7 @@
 
         <sheetdata>
 
-            <!-- override label -->
+            <!-- override party sheet label with blank string since it just doesnt look good with these additional controls and we are out of space -->
             <label_ps name="label_inv_main">
                 <anchored to="itemlist" position="above" offset="0,22" />
                 <static textres="" />
