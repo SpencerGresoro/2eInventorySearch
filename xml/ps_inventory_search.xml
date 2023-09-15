@@ -6,6 +6,13 @@
 
         <sheetdata>
 
+            <!-- override label -->
+            <label_ps name="label_inv_main">
+                <anchored to="itemlist" position="above" offset="0,22" />
+                <static textres="" />
+                <center />
+            </label_ps>
+
             <!-- search controls (input and clear button) -->
             <searchinput name="inv_search_input">
                 <anchored to="itemlist" position="aboveleft" offset="0,25" width="145" height="20"/>
@@ -20,15 +27,15 @@
 
             <!-- filter controls -->
             <label name="filter_lbl">
-                <anchored to="itemlist" position="aboveleft" offset="150,52"/>
-                <static textres="filter"/>
+                <anchored to="itemlist" position="aboveleft" offset="156,25"/>
+                <static textres=""/>
                 <tooltip textres="tooltip_filter"/>
             </label>
             <filtercombo name="inv_filter_dropdown">
-                <anchored to="itemlist" position="aboveleft" offset="150,25" width="145" height="20"/>
+                <anchored to="itemlist" position="aboveleft" offset="156,25" width="165" height="20"/>
                 <listdirection>down</listdirection>
             </filtercombo>
-
+            
         </sheetdata>
     </windowclass>
 </root>
