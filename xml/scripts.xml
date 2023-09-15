@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+    <script name="SearchManager" file="scripts/manager_inventory_search.lua"/>
+    <script name="PartyLootManager" file="scripts/manager_ps_loot.lua"/>
+
+    <includefile source="xml/strings.xml"/>
+    <includefile source="xml/templates.xml"/>
+    <includefile source="xml/record_char_inventory.xml"/>
+    <includefile source="xml/ps_inventory_search.xml"/>
+</root>

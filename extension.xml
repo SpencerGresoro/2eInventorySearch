@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root release="4.0" version="3.0">
+    <properties>
+        <name>2E Search and Filtering</name>
+        <version>1.0</version>
+        <author>Spencer Gresoro</author>
+        <description>Provides search and advanced filtering capability to the Inventory tab and Party Sheet Inventory</description>
+        <ruleset>
+            <name>2E</name>
+        </ruleset>
+    </properties>
+    <base>
+        <includefile source="xml/scripts.xml"/>
+        <icon name="IS_icon" file="graphics/icons/IS_icon.png"/>
+    </base>
+    <announcement font="emotefont" icon="IS_icon" text="2E Search and Filtering v1.0"/>
+</root>

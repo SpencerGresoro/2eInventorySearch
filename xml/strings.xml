@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+    <string name="search">Search</string>
+    <string name="tooltip_search">Enter an item name to search for, then click here or press Enter</string>
+    <string name="tooltip_clear">Clear search</string>
+    <string name="filter">Filter</string>
+    <string name="tooltip_filter">Filter based upon properties of inventory items</string>
+    <string name="filteropt_none">None</string>
+    <string name="filteropt_armor">Armor &amp; Shields</string>
+    <string name="filteropt_weapons">Weapons</string>
+    <string name="filteropt_magical">Magical</string>
+    <string name="filteropt_id">Identified</string>
+    <string name="filteropt_not_id">Not Identified</string>
+    <string name="filteropt_gear">Adventuring Gear</string>
+    <string name="filteropt_goods">Goods and Services</string>
+    <string name="filteropt_carried">Carried</string>
+    <string name="filteropt_equipped">Equipped</string>
+    <string name="filteropt_not_carried">Not Carried</string>
+    <string name="option_header_IS">Inventory Search Filters</string>
+</root>

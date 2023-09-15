@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+    <windowclass name="charsheet_inventory_contents" merge="join">
+        <margins control="0,0,0,2" />
+        <script file="scripts/inventory_search.lua"/>
+
+        <sheetdata>
+
+            <!-- search controls (input and clear button) -->
+            <searchinput name="inv_search_input">
+                <left />
+                <anchored to="invtitle" position="insidetopleft" offset="20,0" width="145" height="20"/>
+                <tooltip text="Search inventory by name..." />
+                <tabtarget next="inv_search_input" prev="inv_search_btn"/>
+            </searchinput>
+            <searchclear name="inv_search_clear_btn">
+                <anchored to="inv_search_input" position="right" offset="0,0" relation="relative" width="20"/>
+            </searchclear>
+
+            <!-- filter (label and combobox) -->
+            <label name="filter_lbl">
+                <anchored to="invtitle" position="right" offset="40,0"/>
+                <static textres="filter"/>
+                <tooltip textres="tooltip_filter"/>
+            </label>
+            <filtercombo name="inv_filter_dropdown">
+                <anchored to="invtitle" position="insidetopright" offset="0,0" width="145" height="20"/>
+                <listdirection>down</listdirection>
+            </filtercombo>
+            
+        </sheetdata>
+    </windowclass>
+</root>

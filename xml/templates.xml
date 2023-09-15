@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+    <!-- search input control template -->
+    <template name="searchinput">
+        <simplestringc>
+            <empty>
+                <textres>search</textres>
+            </empty>
+            <frame mergerule="replace" name="fielddark" offset="7,5,7,5" hidereadonly="true"/>
+            <stateframe>
+                <keyedit name="fieldfocus" offset="7,5,7,5"/>
+                <hover name="fieldfocus" offset="7,5,7,5" hidereadonly="true"/>
+                <drophilight name="fieldfocus" offset="7,5,7,5" hidereadonly="true"/>
+            </stateframe>
+        </simplestringc>
+    </template>
+
+    <!-- search clear button template -->
+    <template name="searchclear">
+        <buttoncontrol>
+            <icon normal="button_clear" pressed="button_clear_down"/>
+            <invisible/>
+            <tooltip textres="tooltip_clear"/>
+        </buttoncontrol>
+    </template>
+
+    <!-- filter combobox template -->
+    <template name="filtercombo">
+        <comboboxc>
+            <empty>
+                <textres>filter</textres>
+            </empty>
+            <tooltip textres="tooltip_filter"/>
+            <unsorted/>
+        </comboboxc>
+    </template>
+
+</root>
