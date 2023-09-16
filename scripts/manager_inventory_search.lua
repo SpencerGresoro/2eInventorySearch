@@ -1,4 +1,5 @@
 -- on init - register/define options (options menu) for 2e inventory search
+-- test commit
  function onInit()
     local ruleset = User.getRulesetName();
 
