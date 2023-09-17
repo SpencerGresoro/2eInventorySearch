@@ -1,106 +1,109 @@
 -- on init - register/define options (options menu) for 2e inventory search
--- test commit
- function onInit()
+function onInit()
     local ruleset = User.getRulesetName();
 
     filterOptions = {
         [1] = {
-            sLabelRes = "filteropt_none",
+            sLabelRes = 'filteropt_none',
             fFilter = function()
                 return true;
             end
         },
         [2] = {
-            sLabelRes = "filteropt_armor",
-            sOptKey = "ISopt_armor",
+            sLabelRes = 'filteropt_armor',
+            sOptKey = 'ISopt_armor',
             fFilter = function(item)
                 return (ItemManager2.isArmor(item));
             end
         },
         [3] = {
-            sLabelRes = "filteropt_weapons",
-            sOptKey = "ISopt_weapons",
+            sLabelRes = 'filteropt_weapons',
+            sOptKey = 'ISopt_weapons',
             fFilter = function(item)
                 return (ItemManager2.isWeapon(item));
             end
         },
         [4] = {
-            sLabelRes = "filteropt_magical",
-            sOptKey = "ISopt_magical",
+            sLabelRes = 'filteropt_magical',
+            sOptKey = 'ISopt_magical',
             fFilter = function(item)
 
-                if LibraryData.getIDState("item", item, true) == false then
-                    return false; -- do not reveal that unidentified items are magical
+                local unidentified = LibraryData.getIDState('item', item, true) == false;
+                local client = Session.IsHost == false;
+
+                -- client - dont show magic if unidentified
+                if unidentified and client then
+                    return false;
+                else
+
+                    -- else extra type and subtype and compare against possible magic
+                    local sType = DB.getValue(item, 'type', ''):lower();
+                    local sSubType = DB.getValue(item, 'subtype', ''):lower();
+
+                    -- check item type or subtype matches any of the criteria for 'magical'
+                    return sType == 'magic' or sType == 'scroll' or sType == 'potion' or sType == 'staff' or sSubType ==
+                               'magic' or sSubType == 'scroll' or sSubType == 'potion' or sSubType == 'staff'
+
                 end
-
-                local sType = DB.getValue(item, "type", ""):lower();
-                local sSubType = DB.getValue(item, "subtype", ""):lower();
-
-                -- check item type or subtype matches any of the criteria for 'magical'
-                return sType == "magic" or sType == "scroll" or sType == "potion" or sType == "staff" or sSubType ==
-                           "magic" or sSubType == "scroll" or sSubType == "potion" or sSubType == "staff"
 
             end
         },
         [5] = {
-            sLabelRes = "filteropt_ritual",
-            sOptKey = "ISopt_ritual",
-            sRulesetFilter = "4E",
+            sLabelRes = 'filteropt_id',
+            sOptKey = 'ISopt_id',
             fFilter = function(item)
-                return DB.getValue(item, "class", "") == "Ritual";
+                return (LibraryData.getIDState('item', item, true)) == true;
             end
         },
         [6] = {
-            sLabelRes = "filteropt_id",
-            sOptKey = "ISopt_id",
+            sLabelRes = 'filteropt_not_id',
+            sOptKey = 'ISopt_not_id',
             fFilter = function(item)
-                return (LibraryData.getIDState("item", item, true)) == true;
+                return (LibraryData.getIDState('item', item, true)) == false;
             end
         },
         [7] = {
-            sLabelRes = "filteropt_not_id",
-            sOptKey = "ISopt_not_id",
+            sLabelRes = 'filteropt_gear',
+            sOptKey = 'ISopt_gear',
             fFilter = function(item)
-                return (LibraryData.getIDState("item", item, true)) == false;
+                return DB.getValue(item, 'type', '') == 'Gear' or DB.getValue(item, 'subtype', '') == 'Adventuring Gear';
             end
         },
         [8] = {
-            sLabelRes = "filteropt_gear",
-            sOptKey = "ISopt_gear",
+            sLabelRes = 'filteropt_goods',
+            sOptKey = 'ISopt_goods',
             fFilter = function(item)
-                return DB.getValue(item, "type", "") == "Gear" or DB.getValue(item, "subtype", "") == "Adventuring Gear";
+
+                -- Goods and Services
+                -- Tools
+                -- Mounts
+                -- Vehicles
+                local sType = DB.getValue(item, 'type', '');
+                local sSubType = DB.getValue(item, 'subtype', '');
+
+                return sType == 'Goods and Services' or sSubType == 'Goods and Services' or sType == 'Tools' or
+                           sType:match('Mounts') or sType:match('Vehicles');
             end
         },
         [9] = {
-            sLabelRes = "filteropt_goods",
-            sOptKey = "ISopt_goods",
+            sLabelRes = 'filteropt_carried',
+            sOptKey = 'ISopt_carried',
             fFilter = function(item)
-                local sType = DB.getValue(item, "type", "");
-                local sSubType = DB.getValue(item, "subtype", "");
-
-                return sType == "Goods and Services" or sSubType == "Goods and Services" or sType == "Tools" or
-                           sType:match("Mounts") or sType:match("Vehicles");
+                return DB.getValue(item, 'carried', '') == 1;
             end
         },
         [10] = {
-            sLabelRes = "filteropt_carried",
-            sOptKey = "ISopt_carried",
+            sLabelRes = 'filteropt_equipped',
+            sOptKey = 'ISopt_equipped',
             fFilter = function(item)
-                return DB.getValue(item, "carried", "") == 1;
+                return DB.getValue(item, 'carried', '') == 2;
             end
         },
         [11] = {
-            sLabelRes = "filteropt_equipped",
-            sOptKey = "ISopt_equipped",
+            sLabelRes = 'filteropt_not_carried',
+            sOptKey = 'ISopt_not_carried',
             fFilter = function(item)
-                return DB.getValue(item, "carried", "") == 2;
-            end
-        },
-        [12] = {
-            sLabelRes = "filteropt_not_carried",
-            sOptKey = "ISopt_not_carried",
-            fFilter = function(item)
-                return DB.getValue(item, "carried", "") == 0;
+                return DB.getValue(item, 'carried', '') == 0;
             end
         }
     };
@@ -109,13 +112,13 @@
     for _, v in ipairs(filterOptions) do
 
         -- registy options 
-        if v.sOptKey ~= nil and (v.sRulesetFilter == nil or v.sRulesetFilter == ruleset) then
-            OptionsManager.registerOption2(v.sOptKey, true, "option_header_IS", v.sLabelRes, "option_entry_cycler", {
-                labels = "option_val_on",
-                values = "on",
-                baselabel = "option_val_off",
-                baseval = "off",
-                default = "on"
+        if v.sOptKey ~= nil then
+            OptionsManager.registerOption2(v.sOptKey, true, 'option_header_IS', v.sLabelRes, 'option_entry_cycler', {
+                labels = 'option_val_on',
+                values = 'on',
+                baselabel = 'option_val_off',
+                baseval = 'off',
+                default = 'on'
             });
 
             -- register callback for option changed

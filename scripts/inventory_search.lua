@@ -10,7 +10,7 @@ function onInit()
     end
 
     -- search inputs - bind callbacks on init
-    inv_search_input.setValue("");
+    inv_search_input.setValue('');
     inv_search_input.onEnter = onSearchEnter;
     inv_search_clear_btn.onButtonPress = onSearchClear;
 
@@ -20,12 +20,12 @@ function onInit()
     inv_filter_dropdown.onSelect = onFilterSelect;
 
     -- is party sheet inventory on/off - you need to adjust the visibility of the search/filter controls for the client (client only)
-    bIsPS = getDatabaseNode().getNodeName() == "partysheet";
+    bIsPS = getDatabaseNode().getNodeName() == 'partysheet';
     if bIsPS then
 
         -- not host - bind party sheet inventory on/off callback for client to show/hide controls
         if not Session.IsHost then
-            OptionsManager.registerCallback("PSIN", onPSInvOptionChanged);
+            OptionsManager.registerCallback('PSIN', onPSInvOptionChanged);
             onPSInvOptionChanged();
         end
     end
@@ -68,8 +68,7 @@ function initFilterDropdown()
 
     -- for each option enabled - rebuild the list with the key value defined in the options - when selection a dropdown item, it performs a lookup to get the correct filter callback
     for _, v in ipairs(SearchAndFilterManager.filterOptions) do
-        if (v.sOptKey == nil or OptionsManager.isOption(v.sOptKey, "on")) and
-            (v.sRulesetFilter == nil or v.sRulesetFilter == ruleset) then
+        if (v.sOptKey == nil or OptionsManager.isOption(v.sOptKey, 'on')) then
             inv_filter_dropdown.add(Interface.getString(v.sLabelRes));
         end
     end
@@ -92,7 +91,7 @@ function onClose()
 
     -- not host, removed party sheet in option changed callback
     if not Session.IsHost then
-        OptionsManager.unregisterCallback("PSIN", onOptionChanged);
+        OptionsManager.unregisterCallback('PSIN', onOptionChanged);
     end
 
     -- remove listener for filter
@@ -134,7 +133,7 @@ function onSearchClear()
     self.applySearchAndFilter();
 
     -- reset control to blank string and hide the clear button
-    inv_search_input.setValue("");
+    inv_search_input.setValue('');
     inv_search_clear_btn.setVisible(false);
 end
 
@@ -143,7 +142,7 @@ function onSearchEnter()
     local searchInput = StringManager.trim(inv_search_input.getValue()):lower();
 
     -- on enter if blank string, clear search
-    if searchInput == "" then
+    if searchInput == '' then
         self.onSearchClear();
     else
 
@@ -163,7 +162,7 @@ end
 
 -- party sheet inventory on/off changed callback (show/hide the search and filter)
 function onPSInvOptionChanged()
-    local bOptPSIN = OptionsManager.isOption("PSIN", "on");
+    local bOptPSIN = OptionsManager.isOption('PSIN', 'on');
     inv_search_input.setVisible(bOptPSIN);
     inv_filter_dropdown.setVisible(bOptPSIN);
 end

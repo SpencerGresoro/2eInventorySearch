@@ -12,7 +12,7 @@
     <string name="filteropt_id">Identified</string>
     <string name="filteropt_not_id">Not Identified</string>
     <string name="filteropt_gear">Adventuring Gear</string>
-    <string name="filteropt_goods">Goods and Services</string>
+    <string name="filteropt_goods">Goods/Services/Mounts</string>
     <string name="filteropt_carried">Carried</string>
     <string name="filteropt_equipped">Equipped</string>
     <string name="filteropt_not_carried">Not Carried</string>
