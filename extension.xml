@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root release="4.0" version="3.0">
+
+    <!-- extension metadata -->
     <properties>
         <name>2E Search and Filtering</name>
         <version>1.1</version>
@@ -11,8 +13,10 @@
         <loadorder>99</loadorder>
     </properties>
     <base>
+
+        <!-- scripts -->
         <includefile source="xml/scripts.xml"/>
         <icon name="2eInventorySearch" file="graphics/icons/2eInventorySearch.png"/>
     </base>
-    <announcement font="emotefont" icon="2eInventorySearch" text="2E Search and Filtering v1.0"/>
+    <announcement font="emotefont" icon="2eInventorySearch" text="AD&amp;D Inventory Search and Filter v1.0 - Spencer Gresoro"/>
 </root>

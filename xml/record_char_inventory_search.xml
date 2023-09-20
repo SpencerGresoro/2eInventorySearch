@@ -24,7 +24,7 @@
                 <tooltip textres="tooltip_filter"/>
             </label>
             <filtercombo name="inv_filter_dropdown">
-                <anchored to="invtitle" position="insidetopright" offset="0,0" width="145" height="20"/>
+                <anchored to="invtitle" position="insidetopright" offset="25,0" width="145" height="20"/>
                 <listdirection>down</listdirection>
             </filtercombo>
  
