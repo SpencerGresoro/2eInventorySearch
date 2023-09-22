@@ -16,7 +16,6 @@ function onInit()
 
     -- filters - bind callbacks on init
     initFilterDropdown();
-    SearchAndFilterManager.setFilterOptionListener(onFilterOptionChanged);
     inv_filter_dropdown.onSelect = onFilterSelect;
 
     -- is party sheet inventory on/off - you need to adjust the visibility of the search/filter controls for the client (client only)
@@ -68,9 +67,7 @@ function initFilterDropdown()
 
     -- for each option enabled - rebuild the list with the key value defined in the options - when selection a dropdown item, it performs a lookup to get the correct filter callback
     for _, v in ipairs(SearchAndFilterManager.filterOptions) do
-        if (v.sOptKey == nil or OptionsManager.isOption(v.sOptKey, 'on')) then
-            inv_filter_dropdown.add(Interface.getString(v.sLabelRes));
-        end
+        inv_filter_dropdown.add(Interface.getString(v.sLabelRes));
     end
 
     -- set index to 1
@@ -93,9 +90,6 @@ function onClose()
     if not Session.IsHost then
         OptionsManager.unregisterCallback('PSIN', onOptionChanged);
     end
-
-    -- remove listener for filter
-    SearchAndFilterManager.removeFilterOptionListener(onFilterOptionChanged);
 end
 
 -- dropdown - filter changed value callback
@@ -112,12 +106,6 @@ function onFilterSelect(sValue)
     end
 
     -- apply both search and filter 
-    self.applySearchAndFilter();
-end
-
--- filter OPTIONS changed callback
-function onFilterOptionChanged()
-    self.initFilterDropdown();
     self.applySearchAndFilter();
 end
 

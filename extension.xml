@@ -4,7 +4,7 @@
     <!-- extension metadata -->
     <properties>
         <name>2E Search and Filtering</name>
-        <version>1.1</version>
+        <version>2.0</version>
         <author>Spencer Gresoro</author>
         <description>Provides search and advanced filtering capability to Character Sheet Inventory and Party Sheet Inventory</description>
         <ruleset>
@@ -18,5 +18,5 @@
         <includefile source="xml/scripts.xml"/>
         <icon name="2eInventorySearch" file="graphics/icons/2eInventorySearch.png"/>
     </base>
-    <announcement font="emotefont" icon="2eInventorySearch" text="AD&amp;D Inventory Search and Filter v1.0 - Spencer Gresoro"/>
+    <announcement font="emotefont" icon="2eInventorySearch" text="AD&amp;D Inventory Search and Filter v2.0 - Spencer Gresoro"/>
 </root>

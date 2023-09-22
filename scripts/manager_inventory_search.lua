@@ -36,14 +36,18 @@ function onInit()
                     return false;
                 else
 
-                    -- else extra type and subtype and compare against possible magic
+                    -- check item type or subtype matches any of the criteria for 'magical'
                     local sType = DB.getValue(item, 'type', ''):lower();
                     local sSubType = DB.getValue(item, 'subtype', ''):lower();
+                    local tMagical = {
+                        ['magic'] = true,
+                        ['scroll'] = true,
+                        ['potion'] = true,
+                        ['staff'] = true
+                    };
 
-                    -- check item type or subtype matches any of the criteria for 'magical'
-                    return sType == 'magic' or sType == 'scroll' or sType == 'potion' or sType == 'staff' or sSubType ==
-                               'magic' or sSubType == 'scroll' or sSubType == 'potion' or sSubType == 'staff'
-
+                    local bIsMagic = tMagical[sType] or tMagical[sSubType];
+                    return bIsMagic;
                 end
 
             end
@@ -66,7 +70,25 @@ function onInit()
             sLabelRes = 'filteropt_gear',
             sOptKey = 'ISopt_gear',
             fFilter = function(item)
-                return DB.getValue(item, 'type', '') == 'Gear' or DB.getValue(item, 'subtype', '') == 'Adventuring Gear';
+
+                -- adventure gear
+                local sType = DB.getValue(item, 'type', ''):lower();
+                local sSubType = DB.getValue(item, 'subtype', ''):lower();
+                local tGear = {
+                    ['equipment packs'] = true,
+                    ['gear'] = true,
+                    ['tool'] = true,
+                    ['clothing'] = true,
+                    ['cloak'] = true,
+                    ['container'] = true,
+                    ['provisions'] = true,
+                    ['tack and harness'] = true,
+                    ['herb or spice'] = true
+                };
+
+                -- check item type or subtype matches any of the criteria for 'adventure gear'
+                local bIsGear = tGear[sType] or tGear[sSubType];
+                return bIsGear;
             end
         },
         [8] = {
@@ -74,15 +96,22 @@ function onInit()
             sOptKey = 'ISopt_goods',
             fFilter = function(item)
 
-                -- Goods and Services
-                -- Tools
-                -- Mounts
-                -- Vehicles
-                local sType = DB.getValue(item, 'type', '');
-                local sSubType = DB.getValue(item, 'subtype', '');
+                -- goods, services, provisions ect.
+                local sType = DB.getValue(item, 'type', ''):lower();
+                local sSubType = DB.getValue(item, 'subtype', ''):lower();
+                local tGoodsAndServices = {
+                    ['goods and services'] = true,
+                    ['daily food and lodging'] = true,
+                    ['service'] = true,
+                    ['transport'] = true,
+                    ['animal'] = true,
+                    ['mounts'] = true,
+                    ['vehicles'] = true
+                };
 
-                return sType == 'Goods and Services' or sSubType == 'Goods and Services' or sType == 'Tools' or
-                           sType:match('Mounts') or sType:match('Vehicles');
+                -- check item type or subtype matches any of the criteria for 'goods and services'
+                local bIsGoods = tGoodsAndServices[sType] or tGoodsAndServices[sSubType];
+                return bIsGoods;
             end
         },
         [9] = {
@@ -107,24 +136,6 @@ function onInit()
             end
         }
     };
-
-    -- foreach object in filter options
-    for _, v in ipairs(filterOptions) do
-
-        -- registy options 
-        if v.sOptKey ~= nil then
-            OptionsManager.registerOption2(v.sOptKey, true, 'option_header_IS', v.sLabelRes, 'option_entry_cycler', {
-                labels = 'option_val_on',
-                values = 'on',
-                baselabel = 'option_val_off',
-                baseval = 'off',
-                default = 'on'
-            });
-
-            -- register callback for option changed
-            OptionsManager.registerCallback(v.sOptKey, onOptionChanged);
-        end
-    end
 end
 
 -- dropdown - lookup the correct option object
@@ -143,34 +154,4 @@ function findFilterOptionObject(sLabelRes, sLabelValue, sOptKey)
 
     -- return the option object which contains things like the filter callback
     return option;
-end
-
--- global option listeners object
-local aFilterOptionListeners = {};
-
--- set filter option listener
-function setFilterOptionListener(f)
-
-    -- push listner object to table
-    table.insert(aFilterOptionListeners, f);
-end
-
--- remove filter option listener
-function removeFilterOptionListener(f)
-
-    -- remove listener from the global filter object
-    for k, v in ipairs(aFilterOptionListeners) do
-        if v == f then
-            table.remove(aFilterOptionListeners, k);
-            return true;
-        end
-    end
-    return false;
-end
-
--- on option changed, update the global filter object (listeners)
-function onOptionChanged(sKey)
-    for _, v in pairs(aFilterOptionListeners) do
-        v(sKey);
-    end
 end
